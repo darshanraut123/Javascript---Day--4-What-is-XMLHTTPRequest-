@@ -15,13 +15,24 @@ else
 
 
 //To display all flag urls in console.
-fetch("https://restcountries.eu/rest/v2/all").then(res=>res.json()).then(res=>{
 
-    let arr = res.map(res=>res.flag);
+var req = new XMLHttpRequest();
+req.responseType = 'json';
+req.open('GET', "https://restcountries.eu/rest/v2/all", true);
+req.onload  = function() {
+   var jsonResponse = req.response;
+    let arr = jsonResponse.map(res=>res.flag);
     arr.forEach(element => {
         console.log(`flagURL: ${element}`);
     });
-})
+
+
+};
+req.send(null);
+
+
+//We can use XmlHttpReq as well as fetch method
+
 
 //To display country,sub region,region, population
 fetch("https://restcountries.eu/rest/v2/all").then(res=>res.json()).then(res=>{
@@ -30,3 +41,4 @@ fetch("https://restcountries.eu/rest/v2/all").then(res=>res.json()).then(res=>{
         console.log(`|| name: ${element.name} || region: ${element.region} || subregion: ${element.subregion} || population: ${element.population} ||`);
     });
 })
+
